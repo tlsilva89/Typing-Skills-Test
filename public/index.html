@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style/index.css">
+  <title>Teste de Informática</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <section class="intro">
+      <h1>Bem vindo ao teste de informática</h1>
+      <p>Em um mundo cada vez mais digital, as habilidades em informática e digitação são ferramentas essenciais para o
+        sucesso pessoal e profissional. Seja para navegar na internet, comunicar-se com o mundo, criar documentos,
+        planilhas
+        ou qualquer outra atividade digital, o domínio do teclado e do computador é fundamental.
+
+        Este teste tem como objetivo avaliar suas habilidades em informática e digitação, medindo sua velocidade,
+        precisão
+        e
+        familiaridade com as ferramentas digitais. Ao final do teste, você terá um panorama claro de seus pontos fortes
+        e
+        áreas que podem ser aprimoradas.
+
+        Não se preocupe com o resultado em si, encare este teste como uma oportunidade de aprendizado e
+        autoconhecimento.
+        Descubra o quão rápido e preciso você é, explore suas habilidades e divirta-se durante o processo.</p>
+
+      <button onclick="location.href='/public/pages/register.html'">Continuar</button>
+    </section>
+    <section class="filter">
+      <h2>Filtrar Resultados</h2>
+      <form>
+        <label for="data">Data:</label>
+        <input type="date" id="date" name="data">
+
+        <br><br>
+
+        <label for="teacher">Instrutor(a): </label>
+        <input type="text" name="teacher" id="teacher" required>
+
+        <br><br>
+
+        <label for="name">Candidato: </label>
+        <input type="text" name="name" id="name" required>
+
+        <br><br>
+
+        <label for="sector">Carteira: </label>
+        <select name="sector" id="sector" required>
+          <option value="Santander">Santander</option>
+          <option value="DM_Cobranca">DM Cobrança</option>
+          <option value="DM_SAC">DM SAC</option>
+          <option value="Credz">Credz</option>
+          <option value="Carrefour">Carrefour</option>
+          <option value="Crefisa">Crefisa</option>
+          <option value="Demais_Carteiras">Demais Carteiras</option>
+        </select>
+
+        <br><br>
+
+        <input type="submit" value="Filtrar">
+      </form>
+    </section>
+  </div>
+
+</body>
+
+</html>
