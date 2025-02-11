@@ -1,5 +1,10 @@
 document.addEventListener('keydown', function (event) {
-    const registroUsuario = JSON.parse(localStorage.getItem('registroUsuario'));
+    // Verifica se o registroUsuario existe no localStorage
+    let registroUsuario = JSON.parse(localStorage.getItem('registroUsuario'));
+    if (!registroUsuario) {
+        console.error('Registro não encontrado no localStorage.');
+        return;
+    }
 
     if (event.ctrlKey && event.key === 'c') {
         registroUsuario.ctrlC = true;
@@ -14,7 +19,13 @@ document.addEventListener('keydown', function (event) {
 });
 
 window.addEventListener('blur', function () {
-    const registroUsuario = JSON.parse(localStorage.getItem('registroUsuario'));
+    // Verifica se o registroUsuario existe no localStorage
+    let registroUsuario = JSON.parse(localStorage.getItem('registroUsuario'));
+    if (!registroUsuario) {
+        console.error('Registro não encontrado no localStorage.');
+        return;
+    }
+
     registroUsuario.altTab = true;
     localStorage.setItem('registroUsuario', JSON.stringify(registroUsuario));
     console.log(registroUsuario);

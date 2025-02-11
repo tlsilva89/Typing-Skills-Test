@@ -9,10 +9,10 @@ const port = 3000;
 
 // Configurações do servidor
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json()); // Para receber JSON no POST
-app.use(express.static(path.join(__dirname, 'public'))); // Servir arquivos estáticos da pasta "public"
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
-let registros = []; // Array para armazenar os registros
+let registros = []; // Array para armazenar TODOS os registros
 
 // Rota para receber dados do formulário de registro
 app.post('/enviar_dados', (req, res) => {
@@ -25,23 +25,41 @@ app.post('/enviar_dados', (req, res) => {
         ctrlV: false,
         altTab: false,
         porcentagemAcertos: 0,
-        tempoDigitacao: ''
+        tempoDigitacao: '',
+        pontuacaoFinal: 0 // Inicializa a pontuação final
     };
 
-    registros.push(registro); // Adiciona o registro ao array
-    res.redirect('/pages/test.html'); // Redireciona para a página de teste
+    // Adiciona o registro ao array
+    registros.push(registro);
+    res.redirect('/pages/test.html');
 });
 
 // Rota para finalizar o teste e salvar os dados no XLSX
 app.post('/finalizar_teste', (req, res) => {
     const registroUsuario = JSON.parse(req.body.registroUsuario);
-    registroUsuario.porcentagemAcertos = parseFloat(req.body.porcentagemAcertos);
-    registroUsuario.tempoDigitacao = req.body.tempoDigitacao;
 
-    registros.push(registroUsuario); // Adiciona o registro finalizado ao array
+    // Validação dos dados
+    if (!registroUsuario || !registroUsuario.name || !registroUsuario.date || !registroUsuario.teacher || !registroUsuario.sector) {
+        console.error('Dados inválidos recebidos:', registroUsuario);
+        return res.status(400).send('Dados inválidos.');
+    }
+
+    registroUsuario.porcentagemAcertos = parseFloat(req.body.porcentagemAcertos) || 0;
+    registroUsuario.tempoDigitacao = req.body.tempoDigitacao || '0';
+    registroUsuario.pontuacaoFinal = parseFloat(req.body.pontuacaoFinal) || 0;
+    registroUsuario.ctrlC = registroUsuario.ctrlC === 'true' ? true : false;
+    registroUsuario.ctrlV = registroUsuario.ctrlV === 'true' ? true : false;
+    registroUsuario.altTab = registroUsuario.altTab === 'true' ? true : false;
+
+    // Verifique os dados recebidos
+    console.log('Dados recebidos:', registroUsuario);
+
+    // Adiciona o registro ao array (sem limpar o array)
+    registros.push(registroUsuario);
 
     // Cria um arquivo XLSX
-    const ws = xlsx.utils.json_to_sheet(registros);
+    const headers = ['name', 'date', 'teacher', 'sector', 'ctrlC', 'ctrlV', 'altTab', 'porcentagemAcertos', 'tempoDigitacao', 'pontuacaoFinal'];
+    const ws = xlsx.utils.json_to_sheet(registros, { headers });
     const wb = xlsx.utils.book_new();
     xlsx.utils.book_append_sheet(wb, ws, 'Registros');
 
@@ -60,28 +78,22 @@ app.post('/finalizar_teste', (req, res) => {
     res.send('Teste finalizado e dados salvos com sucesso!');
 });
 
-// Rota para servir a página inicial
+// Rotas para servir as páginas
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Rota para servir a página de registro
 app.get('/register.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'register.html'));
 });
 
-// Rota para servir a página de teste
 app.get('/pages/test.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'pages', 'test.html'));
 });
 
-// Rota para servir a página de teste de digitação
 app.get('/pages/typing-test.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'pages', 'typing-test.html'));
 });
-
-// Rota para servir arquivos estáticos (CSS, JS, imagens)
-app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // Inicia o servidor
 app.listen(port, () => {
