@@ -1,10 +1,7 @@
+let altPressionado = false;
+
 document.addEventListener('keydown', function (event) {
-    // Verifica se o registroUsuario existe no localStorage
-    let registroUsuario = JSON.parse(localStorage.getItem('registroUsuario'));
-    if (!registroUsuario) {
-        console.error('Registro não encontrado no localStorage.');
-        return;
-    }
+    const registroUsuario = JSON.parse(localStorage.getItem('registroUsuario'));
 
     if (event.ctrlKey && event.key === 'c') {
         registroUsuario.ctrlC = true;
@@ -14,21 +11,22 @@ document.addEventListener('keydown', function (event) {
         registroUsuario.ctrlV = true;
     }
 
+    if (event.key === 'Alt') {
+        altPressionado = true;
+    }
+
     localStorage.setItem('registroUsuario', JSON.stringify(registroUsuario));
     console.log(registroUsuario);
 });
 
 window.addEventListener('blur', function () {
-    // Verifica se o registroUsuario existe no localStorage
-    let registroUsuario = JSON.parse(localStorage.getItem('registroUsuario'));
-    if (!registroUsuario) {
-        console.error('Registro não encontrado no localStorage.');
-        return;
+    if (altPressionado) {
+        console.log('Pressionou Alt + Tab')
+        const registroUsuario = JSON.parse(localStorage.getItem('registroUsuario'));
+        registroUsuario.altTab = true;
+        localStorage.setItem('registroUsuario', JSON.stringify(registroUsuario));
+        console.log(registroUsuario);
     }
-
-    registroUsuario.altTab = true;
-    localStorage.setItem('registroUsuario', JSON.stringify(registroUsuario));
-    console.log(registroUsuario);
 });
 
 function enviar() {

@@ -2,56 +2,136 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
 }
 
 body {
+  font-family: Arial, sans-serif;
+  background-color: #B28DFF;
+  color: #fff;
+  line-height: 1.3;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #B28DFF;
+  min-height: 100vh;
+  padding: 20px;
 }
 
 .container {
-  background-color: #312e33;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
   width: 100%;
-  align-items: center;
-  text-align: center;
+  background-color: #312e33;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  /* Para posicionar a linha vertical */
 }
 
 .intro,
 .download {
-  margin-bottom: 20px;
+  flex: 1;
+  padding: 20px;
 }
 
-h1,
-h2 {
+.intro {
+  position: relative;
+  /* Para posicionar a linha vertical */
+}
+
+/* Linha vertical entre .intro e .download */
+.intro::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -10px;
+  /* Ajuste a posição da linha */
+  height: 100%;
+  width: 1px;
+  background-color: #ccc;
+  /* Cor da linha */
+}
+
+.intro h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
   color: #007bff;
-  margin-bottom: 10px;
   text-align: center;
 }
 
-p {
-  color: #fff;
-  line-height: 1.6;
-  margin-bottom: 20px;
+.intro p {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  line-height: 1.3;
 }
 
-button {
+/* Centraliza apenas os botões */
+.intro button,
+.download button {
+  display: block;
+  /* Transforma o botão em um bloco */
+  margin: 20px auto 0;
+  /* Margem automática nas laterais para centralizar */
   background-color: #0056b3;
   color: #fff;
   border: none;
   padding: 10px 20px;
+  font-size: 1rem;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
-button:hover {
+.intro button:hover,
+.download button:hover {
   background-color: #48bcc5;
+}
+
+.download h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #007bff;
+  text-align: center;
+}
+
+.download p {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  line-height: 1.8;
+}
+
+.download a {
+  text-decoration: none;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .intro,
+  .download {
+    margin-right: 0;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .intro::after {
+    display: none;
+    /* Remove a linha vertical em telas menores */
+  }
+
+  .intro h1,
+  .download h2 {
+    font-size: 2rem;
+  }
+
+  .intro p,
+  .download p {
+    font-size: 1rem;
+  }
 }
