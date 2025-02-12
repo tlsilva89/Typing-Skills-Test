@@ -105,33 +105,3 @@ body {
 .download a {
   text-decoration: none;
 }
-
-/* Responsividade */
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .intro,
-  .download {
-    margin-right: 0;
-    margin-bottom: 20px;
-    width: 100%;
-  }
-
-  .intro::after {
-    display: none;
-    /* Remove a linha vertical em telas menores */
-  }
-
-  .intro h1,
-  .download h2 {
-    font-size: 2rem;
-  }
-
-  .intro p,
-  .download p {
-    font-size: 1rem;
-  }
-}
