@@ -4,7 +4,7 @@
 Desenvolvi este projeto com o objetivo de criar um teste interativo para avaliar as habilidades de digitação e o conhecimento básico de atalhos de teclado dos usuários. Além disso, o projeto gera um relatório completo em formato XLSX com métricas de desempenho.
 
 ## Funcionalidades:
-- Teste de digitação com interface intuitiva e desafios progressivos.
+- Teste de digitação com interface intuitiva.
 - Avaliação do conhecimento de atalhos de teclado em diferentes contextos.
 - Geração de relatório detalhado em XLSX com informações sobre velocidade, precisão e desempenho nos atalhos.
 
