@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const textElement = document.getElementById('text');
     const inputElement = document.getElementById('input');
     const resultElement = document.getElementById('result');
+    const botao = document.getElementById("botaoFinalizar");
     let startTime;
 
     // Bloquear copiar, colar e cortar no <textarea>
@@ -11,6 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     inputElement.addEventListener('focus', () => {
         startTime = new Date();
+    });
+
+    // Bloqueia o botão para não ser clicado 2 vezes pela mesma pessoa em caso de "delay"
+    botao.addEventListener("click", function() {
+        this.disabled = true;
     });
 
     window.checkTyping = () => {
